@@ -21,9 +21,20 @@ public class Oauth2Context extends AbstractOAuthContext {
     private String error_description;
     private String redirect_uri;
     protected String client_secret;
+    //
+    protected String authorise_endpoint;
+    protected String state;
+    protected String scope;
+
 
     public Oauth2Context(String host, String redirect_uri) {
         super(host);
+        this.redirect_uri = redirect_uri;
+    }
+
+    public Oauth2Context(String host, String authorise_endpoint, String redirect_uri) {
+        super(host);
+        this.authorise_endpoint = authorise_endpoint;
         this.redirect_uri = redirect_uri;
     }
 
@@ -161,5 +172,29 @@ public class Oauth2Context extends AbstractOAuthContext {
 
     public void setClient_secret(String client_secret) {
         this.client_secret = client_secret;
+    }
+
+    public String getAuthorise_endpoint() {
+        return authorise_endpoint;
+    }
+
+    public void setAuthorise_endpoint(String authorise_endpoint) {
+        this.authorise_endpoint = authorise_endpoint;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }

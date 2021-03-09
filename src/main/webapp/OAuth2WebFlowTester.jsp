@@ -20,9 +20,27 @@
             var client_id = trim(form.OAuth2RequestAuthCode_action_oauthContext_client_id.value);
             var redirect_uri = trim(form.OAuth2RequestAuthCode_action_oauthContext_redirect_uri.value);
 
+            var authorise_endpoint = trim(form.OAuth2RequestAuthCode_action_oauthContext_authorise_endpoint.value);
+            var scope = trim(form.OAuth2RequestAuthCode_action_oauthContext_scope.value);
+            var state = trim(form.OAuth2RequestAuthCode_action_oauthContext_state.value);
+
+            /*
             var authRequestUrl = "https://" + host +
                                  "/services/oauth2/authorize?response_type=code&display=popup&client_id=" + client_id +
                                  "&redirect_uri=" + escape(redirect_uri);
+            */
+            var authRequestUrl = host 
+                                + authorise_endpoint
+                                + "?response_type=code&client_id=" + client_id +
+                                 "&redirect_uri=" + escape(redirect_uri);
+            
+            if (scope) {
+                authRequestUrl = authRequestUrl + '&scope=' + scope;
+            }
+
+            if (state) {
+                authRequestUrl = authRequestUrl + '&state=' + state;
+            }
 
             form.OAuth2RequestAuthCode_action_oauthContext_authRequestUrl.value = authRequestUrl;
         }
@@ -36,8 +54,12 @@
         <s:actionerror cssStyle="color: red;"/>
         <s:form method="POST" action="OAuth2RequestAuthCode.action">
             <s:textfield key="oauthContext.host" label="%{getText('label.oauth.2_0.host')}" labelposition="top" size="60" onkeyup="buildAuthorizationUrl();" onchange="buildAuthorizationUrl();"/>
+            <s:textfield key="oauthContext.authorise_endpoint" label="%{getText('label.oauth.2_0.authorise_endpoint')}" labelposition="top" size="60" onkeyup="buildAuthorizationUrl();" onchange="buildAuthorizationUrl();"/>
             <s:textfield key="oauthContext.client_id" label="%{getText('label.oauth.2_0.consumerKey')}" labelposition="top" size="60" onkeyup="buildAuthorizationUrl();" onchange="buildAuthorizationUrl();"/>
             <s:textfield key="oauthContext.redirect_uri" label="%{getText('label.oauth.2_0.redirectUri')}" labelposition="top" size="60" onkeyup="buildAuthorizationUrl();" onchange="buildAuthorizationUrl();" cssStyle="margin-bottom: 2em;"/>
+            
+            <s:textfield key="oauthContext.scope" label="%{getText('label.oauth.2_0.scope')}" labelposition="top" size="60" onkeyup="buildAuthorizationUrl();" onchange="buildAuthorizationUrl();"/>
+            <s:textfield key="oauthContext.state" label="%{getText('label.oauth.2_0.state')}" labelposition="top" size="60" onkeyup="buildAuthorizationUrl();" onchange="buildAuthorizationUrl();"/>
 
             <s:textarea key="oauthContext.authRequestUrl" label="%{getText('label.oauth.2_0.authUrl')}" cols="63" rows="6" labelposition="top"/>
 
