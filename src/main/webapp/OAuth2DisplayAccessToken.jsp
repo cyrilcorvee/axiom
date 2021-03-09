@@ -16,6 +16,7 @@
         <p style="word-wrap: break-word;"><strong>Refresh Token:</strong><br/><s:text name="oauthContext.refresh_token"/></p>
         <p><strong>Issued At:</strong><br/><s:text name="oauthContext.issued_at"/></p>
         <p><strong>Instance URL:</strong><br/><s:text name="oauthContext.instance_url"/></p>
+        <p style="word-wrap: break-word;"><strong>State:</strong><br/><s:text name="oauthContext.state"/></p>
 
         <hr/>
 

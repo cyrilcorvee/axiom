@@ -77,7 +77,7 @@ public class OAuth2WebFlowTester extends OAuthSupport {
     public Oauth2Context getOauthContext() {
         if (!session.containsKey(OAUTH_CONTEXT)) {
             final String default_host = "https://iamb2c-partner-portal.cs88.force.com/b2cIdentity";//"login.salesforce.com";
-            final String default_authorise_endpoint = "/services/oauth2/authorize";
+            final String default_authorise_endpoint = "/services/oauth2/authorize/expid_";
 
 
             String requestURL = getServletRequest()
