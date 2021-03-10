@@ -27,7 +27,7 @@
                              "&client_id=" + client_id +
                              "&code=" + code +
                              "&client_secret=" + client_secret +
-                             "&redirect_uri=" + encodeURI(redirect_uri);
+                             "&redirect_uri=" + encodeURIComponent(redirect_uri);
 
             form.OAuth2RequestAccessToken_action_oauthContext_tokenRequestUrl.value = hostString;
         }
