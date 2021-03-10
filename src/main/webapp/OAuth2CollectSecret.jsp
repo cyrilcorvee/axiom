@@ -22,8 +22,7 @@
             var client_secret = trim(form.OAuth2RequestAccessToken_action_oauthContext_client_secret.value);
             var code = trim(form.OAuth2RequestAccessToken_action_oauthContext_code.value);
 
-            var hostString = "https://" +
-                             host + "/services/oauth2/token?&grant_type=authorization_code" +
+            var hostString = host + "/services/oauth2/token?&grant_type=authorization_code" +
                              "&client_id=" + client_id +
                              "&code=" + code +
                              "&client_secret=" + client_secret +
