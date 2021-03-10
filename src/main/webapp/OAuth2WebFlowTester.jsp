@@ -32,7 +32,7 @@
             var authRequestUrl = host 
                                 + authorise_endpoint
                                 + "?response_type=code&client_id=" + client_id +
-                                 "&redirect_uri=" + escape(redirect_uri);
+                                 "&redirect_uri=" + encodeURI(redirect_uri);
             
             if (scope) {
                 authRequestUrl = authRequestUrl + '&scope=' + scope;
