@@ -17,8 +17,8 @@
 
         function fireSingleLogout() {
             
-            let host = trim('<s:text name="oauthContext.host"/>');
-            let accessToken = trim('<s:text name="oauthContext.access_token"/>');
+            let host = '<s:text name="oauthContext.host"/>';
+            let accessToken = '<s:text name="oauthContext.access_token"/>';
             let iframeUrl = host + '/services/auth/idp/oidc/logout?id_token_hint=' + accessToken;
 
             console.log('iframeUrl==' + iframeUrl);
