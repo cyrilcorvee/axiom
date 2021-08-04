@@ -8,9 +8,18 @@
 
 
     <script>
+        function trim(str) {
+            if (str === undefined || str === null) {
+                return "";
+            }
+
+            return str.replace(/^\s+|\s+$/g,"");
+        }
+
         function fireSingleLogout() {
             
             let host = trim('<s:text name="oauthContext.host"/>');
+            trim('<s:text name="oauthContext.host"/>');
             let accessToken = trim('<s:text name="oauthContext.access_token"/>');
             let iframeUrl = host + '/services/auth/idp/oidc/logout?id_token_hint=' + accessToken;
 
@@ -49,12 +58,15 @@
             </ul>
         </p>
 
+        <hr/>
+
+        <div>
+            <button type="button" onclick="fireSingleLogout()">Single Logout</button>
+        </div>
 
     </div>
 
-    <div style="float: left;">
-        <button type="button" onclick="fireSingleLogout()">Single Logout</button>
-    </div>
+
 
     <div style="float: right;">
         <img src="<s:url value="%{getText('img.oauth.2_0.webapp.flow5')}"/>" border="0"/>
