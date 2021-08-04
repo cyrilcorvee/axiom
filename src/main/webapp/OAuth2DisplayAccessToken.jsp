@@ -12,19 +12,20 @@
             if (str === undefined || str === null) {
                 return "";
             }
-
             return str.replace(/^\s+|\s+$/g,"");
         }
 
         function fireSingleLogout() {
             
             let host = trim('<s:text name="oauthContext.host"/>');
-            trim('<s:text name="oauthContext.host"/>');
             let accessToken = trim('<s:text name="oauthContext.access_token"/>');
             let iframeUrl = host + '/services/auth/idp/oidc/logout?id_token_hint=' + accessToken;
 
+            console.log('iframeUrl==' + iframeUrl);
+
             let ifrm = document.createElement('iframe');
             ifrm.setAttribute('src', iframeUrl);
+            ifrm.setAttribute('style', 'width:0px;height:0px;border:none;');
 
             ifrm.className = 'sfid-logout';
             ifrm.onload = function() {
@@ -32,6 +33,7 @@
                 console.log('idp session was invalidated');
             };
             document.body.appendChild(ifrm);
+            console.log('iframe appended');
         }
     </script>
 
