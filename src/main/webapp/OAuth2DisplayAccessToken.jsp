@@ -5,6 +5,38 @@
 <html>
 <head>
     <s:include value="%{getText('app.includes.head')}" />
+
+
+    <script>
+        function trim(str) {
+            if (str === undefined || str === null) {
+                return "";
+            }
+            return str.replace(/^\s+|\s+$/g,"");
+        }
+
+        function fireSingleLogout() {
+            
+            let host = '<s:text name="oauthContext.host"/>';
+            let accessToken = '<s:text name="oauthContext.access_token"/>';
+            let iframeUrl = host + '/services/auth/idp/oidc/logout?id_token_hint=' + accessToken;
+
+            console.log('iframeUrl==' + iframeUrl);
+
+            let ifrm = document.createElement('iframe');
+            ifrm.setAttribute('src', iframeUrl);
+            ifrm.setAttribute('style', 'width:0px;height:0px;border:none;');
+
+            ifrm.className = 'sfid-logout';
+            ifrm.onload = function() {
+                this.parentNode.removeChild(this);
+                console.log('idp session was invalidated');
+            };
+            document.body.appendChild(ifrm);
+            console.log('iframe appended');
+        }
+    </script>
+
 </head>
 
 <body>
@@ -27,7 +59,16 @@
                 <li><a target="_blank" href="http://workbench/login.php?sid=<s:text name="oauthContext.access_token"/>&serverUrlPrefix=<s:text name="oauthContext.instance_url"/>">Workbench</a></li>
             </ul>
         </p>
+
+        <hr/>
+
+        <div>
+            <button type="button" onclick="fireSingleLogout()">Single Logout</button>
+        </div>
+
     </div>
+
+
 
     <div style="float: right;">
         <img src="<s:url value="%{getText('img.oauth.2_0.webapp.flow5')}"/>" border="0"/>

@@ -76,8 +76,10 @@ public class OAuth2WebFlowTester extends OAuthSupport {
 
     public Oauth2Context getOauthContext() {
         if (!session.containsKey(OAUTH_CONTEXT)) {
-            final String default_host = "https://iamb2c-partner-portal.cs88.force.com/b2cIdentity";//"login.salesforce.com";
-            final String default_authorise_endpoint = "/services/oauth2/authorize/expid_";
+                        
+            String default_host = System.getenv("DEFAULT_HOST");
+
+            String default_authorise_endpoint = System.getenv("DEFAULT_AUTHORISE_ENDPOINT");
 
 
             String requestURL = getServletRequest()
@@ -90,7 +92,17 @@ public class OAuth2WebFlowTester extends OAuthSupport {
                 requestURL = requestURL.replaceFirst("http://", "https://");
             }
 
-            session.put(OAUTH_CONTEXT, new Oauth2Context(default_host, default_authorise_endpoint, requestURL));
+            Oauth2Context authContext = new Oauth2Context(default_host, default_authorise_endpoint, requestURL);
+            authContext.setScope("openid");
+
+            String default_client_id = System.getenv("DEFAULT_CLIENT_ID");
+            authContext.setClient_id(default_client_id);
+            
+            String default_client_secret = System.getenv("DEFAULT_CLIENT_SECRET");
+            authContext.setClient_secret(default_client_secret);
+
+
+            session.put(OAUTH_CONTEXT, authContext);
         }
 
         return (Oauth2Context) session.get(OAUTH_CONTEXT);
